@@ -157,7 +157,9 @@ open class CloudCore {
 		operation.errorBlock = error
 		operation.completionBlock = completion
 
-		queue.addOperation(operation)
+        if(!queue.operations.contains(operation)) {
+            queue.addOperation(operation)
+        }
 	}
 	
 	/** Check if notification is CloudKit notification containing CloudCore data

@@ -103,7 +103,10 @@ class ObjectToRecordConverter {
 	func confirmConvertOperationsAndWait(in context: NSManagedObjectContext) -> (recordsToSave: [RecordWithDatabase], recordIDsToDelete: [RecordIDWithDatabase]) {
 		for operation in notConfirmedConvertOperations {
 			operation.parentContext = context
-			operationQueue.addOperation(operation)
+            
+            if(!operationQueue.operations.contains(operation)) {
+                operationQueue.addOperation(operation)
+            }
 		}
 
 		notConfirmedConvertOperations = [ObjectToRecordOperation]()
